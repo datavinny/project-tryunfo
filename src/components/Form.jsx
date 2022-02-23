@@ -8,11 +8,11 @@ class Form extends Component {
     const { isSaveButtonDisabled, onInputChange, onSaveButtonClick } = this.props;
     return (
       <form action="" method="GET">
-        <label htmlFor="nome">
+        <label htmlFor="cardName">
           <input
             type="text"
             data-testid="name-input"
-            id="nome"
+            id="cardName"
             value={ cardName }
             onChange={ onInputChange }
           />
@@ -20,55 +20,58 @@ class Form extends Component {
 
         <textarea
           data-testid="description-input"
+          id="cardDescription"
           value={ cardDescription }
           onChange={ onInputChange }
         />
 
-        <label htmlFor="attr1">
+        <label htmlFor="cardAttr1">
           <input
             type="number"
+            max="90"
             data-testid="attr1-input"
-            id="attr1"
+            id="cardAttr1"
             value={ cardAttr1 }
             onChange={ onInputChange }
           />
         </label>
 
-        <label htmlFor="attr2">
+        <label htmlFor="cardAttr2">
           <input
             type="number"
+            max="90"
             data-testid="attr2-input"
-            id="attr2"
+            id="cardAttr2"
             value={ cardAttr2 }
             onChange={ onInputChange }
           />
         </label>
 
-        <label htmlFor="attr3">
+        <label htmlFor="cardAttr3">
           <input
             type="number"
+            max="90"
             data-testid="attr3-input"
-            id="attr3"
+            id="cardAttr3"
             value={ cardAttr3 }
             onChange={ onInputChange }
           />
         </label>
 
-        <label htmlFor="imagem">
+        <label htmlFor="cardImage">
           <input
             type="text"
-            id="imagem"
             data-testid="image-input"
+            id="cardImage"
             value={ cardImage }
             onChange={ onInputChange }
           />
         </label>
 
-        <label htmlFor="raridade">
+        <label htmlFor="cardRare">
           <select
-            name="raridade"
-            id="raridade"
             data-testid="rare-input"
+            id="cardRare"
             value={ cardRare }
             onChange={ onInputChange }
           >
@@ -81,8 +84,7 @@ class Form extends Component {
         <label htmlFor="trunfo">
           <input
             type="checkbox"
-            name=""
-            id="trunfo"
+            id="cardTrunfo"
             data-testid="trunfo-input"
             checked={ cardTrunfo }
             onChange={ onInputChange }
@@ -91,6 +93,7 @@ class Form extends Component {
 
         <button
           type="submit"
+          id="save"
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
