@@ -28,6 +28,7 @@ class Form extends Component {
         <label htmlFor="cardAttr1">
           <input
             type="number"
+            min="0"
             max="90"
             data-testid="attr1-input"
             id="cardAttr1"
@@ -39,6 +40,7 @@ class Form extends Component {
         <label htmlFor="cardAttr2">
           <input
             type="number"
+            min="0"
             max="90"
             data-testid="attr2-input"
             id="cardAttr2"
@@ -50,6 +52,7 @@ class Form extends Component {
         <label htmlFor="cardAttr3">
           <input
             type="number"
+            min="0"
             max="90"
             data-testid="attr3-input"
             id="cardAttr3"
