@@ -17,6 +17,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+      deck: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.validate = this.validate.bind(this);
@@ -72,7 +73,7 @@ class App extends React.Component {
   }
 
   onSaveButtonClick = () => {
-    this.setState(this.makeDeck, this.validateDeck);
+    this.makeDeck();
     this.setState({ cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -83,14 +84,16 @@ class App extends React.Component {
       cardTrunfo: false });
   }
 
-  makeDeck = ({ cardName,
-    cardDescription,
-    cardAttr1,
-    cardAttr2,
-    cardAttr3,
-    cardImage,
-    cardRare,
-    cardTrunfo }) => {
+  makeDeck = () => {
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      deck } = this.state;
     const newCard = { cardName,
       cardDescription,
       cardAttr1,
@@ -99,13 +102,11 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo };
-    const savedCards = { deck: [{ ...newCard }] };
-    // console.log(savedCards.deck);
-    return savedCards;
+    this.setState({ deck: [...deck, newCard] }, () => this.validateDeck());
   }
 
   validateDeck = () => {
-    const { deck } = this.state;
+    const { deck, cardTrunfo } = this.state;
     deck.forEach(() => {
       this.setState({
         hasTrunfo: !!cardTrunfo,
@@ -126,10 +127,12 @@ class App extends React.Component {
         cardTrunfo,
         hasTrunfo,
         isSaveButtonDisabled,
+        deck,
       },
       onInputChange,
       onSaveButtonClick,
     } = this;
+    // console.log(deck);
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -157,6 +160,20 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        {deck.map((card) => (
+          <Card
+            cardName={ card.cardName }
+            cardDescription={ card.cardDescription }
+            cardAttr1={ card.cardAttr1 }
+            cardAttr2={ card.cardAttr2 }
+            cardAttr3={ card.cardAttr3 }
+            cardImage={ card.cardImage }
+            cardRare={ card.cardRare }
+            cardTrunfo={ card.cardTrunfo }
+            key={ card.cardName }
+          />
+        ))}
+        ;
       </div>
     );
   }
