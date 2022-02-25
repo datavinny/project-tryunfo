@@ -19,7 +19,7 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
     };
     this.onInputChange = this.onInputChange.bind(this);
-    this.checkButton = this.checkButton.bind(this);
+    this.validate = this.validate.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.makeDeck = this.makeDeck.bind(this);
   }
@@ -30,10 +30,10 @@ class App extends React.Component {
 
     this.setState({
       [id]: value,
-    }, () => this.checkButton());
+    }, () => this.validate());
   };
 
-  checkButton = () => {
+  validate = () => {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
       cardImage } = this.state;
     const arrayText = [cardName, cardDescription, cardImage];
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   onSaveButtonClick = () => {
-    this.setState(this.makeDeck);
+    this.setState(this.makeDeck, this.validateDeck);
     this.setState({ cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -102,6 +102,15 @@ class App extends React.Component {
     const savedCards = { deck: [{ ...newCard }] };
     // console.log(savedCards.deck);
     return savedCards;
+  }
+
+  validateDeck = () => {
+    const { deck } = this.state;
+    deck.forEach(() => {
+      this.setState({
+        hasTrunfo: !!cardTrunfo,
+      });
+    });
   }
 
   render() {

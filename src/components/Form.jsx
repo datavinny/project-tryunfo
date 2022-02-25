@@ -84,7 +84,7 @@ class Form extends Component {
           </select>
         </label>
 
-        <label htmlFor="trunfo">
+        {hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : <label htmlFor="trunfo">
           <input
             type="checkbox"
             id="cardTrunfo"
@@ -92,7 +92,7 @@ class Form extends Component {
             checked={ cardTrunfo }
             onChange={ onInputChange }
           />
-        </label>
+                                                                         </label>}
 
         <button
           type="button"
