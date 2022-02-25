@@ -13,13 +13,15 @@ class App extends React.Component {
       cardAttr2: '',
       cardAttr3: '',
       cardImage: '',
-      cardRare: 'Normal',
+      cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
     };
     this.onInputChange = this.onInputChange.bind(this);
+    this.checkButton = this.checkButton.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.makeDeck = this.makeDeck.bind(this);
   }
 
   onInputChange = ({ target }) => {
@@ -28,28 +30,14 @@ class App extends React.Component {
 
     this.setState({
       [id]: value,
-    }, () => this.onSaveButtonClick());
+    }, () => this.checkButton());
   };
 
-  onSaveButtonClick = () => {
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-    } = this.state;
-    const arrayText = [
-      cardName,
-      cardDescription,
-      cardImage,
-    ];
-    const arrayNumber = [
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-    ];
+  checkButton = () => {
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage } = this.state;
+    const arrayText = [cardName, cardDescription, cardImage];
+    const arrayNumber = [cardAttr1, cardAttr2, cardAttr3];
     let count = 0;
     const tudoCerto = 6;
     arrayText.forEach((element) => {
@@ -81,7 +69,39 @@ class App extends React.Component {
         isSaveButtonDisabled: true,
       });
     }
-    // console.log(count);
+  }
+
+  onSaveButtonClick = () => {
+    this.setState(this.makeDeck);
+    this.setState({ cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false });
+  }
+
+  makeDeck = ({ cardName,
+    cardDescription,
+    cardAttr1,
+    cardAttr2,
+    cardAttr3,
+    cardImage,
+    cardRare,
+    cardTrunfo }) => {
+    const newCard = { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo };
+    const savedCards = { deck: [{ ...newCard }] };
+    // console.log(savedCards.deck);
+    return savedCards;
   }
 
   render() {
