@@ -18,11 +18,15 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       deck: [],
+      buttonAlwaysDisabled: true,
+      buttonAlwaysEnable: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.validate = this.validate.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.makeDeck = this.makeDeck.bind(this);
+    this.onClickRemoveCard = this.onClickRemoveCard.bind(this);
+    this.validateDeck = this.validateDeck.bind(this);
   }
 
   onInputChange = ({ target }) => {
@@ -81,7 +85,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
-      cardTrunfo: false });
+      cardTrunfo: false }, () => this.validateDeck());
   }
 
   makeDeck = () => {
@@ -106,12 +110,24 @@ class App extends React.Component {
   }
 
   validateDeck = () => {
-    const { deck, cardTrunfo } = this.state;
-    deck.forEach(() => {
+    const { deck } = this.state;
+    const isTrunfoTrue = deck.some(({ cardTrunfo }) => cardTrunfo === true);
+    if (isTrunfoTrue === true) {
       this.setState({
-        hasTrunfo: !!cardTrunfo,
+        hasTrunfo: true,
       });
-    });
+    } else {
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
+  }
+
+  onClickRemoveCard = ({ target }) => {
+    const { deck } = this.state;
+    const newDeck = deck.splice(target.value, target.value);
+    this.setState({ deck: newDeck }, () => this.validateDeck());
+    // console.log(deck);
   }
 
   render() {
@@ -128,11 +144,13 @@ class App extends React.Component {
         hasTrunfo,
         isSaveButtonDisabled,
         deck,
+        buttonAlwaysDisabled,
+        buttonAlwaysEnable,
       },
       onInputChange,
       onSaveButtonClick,
+      onClickRemoveCard,
     } = this;
-    // console.log(deck);
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -159,21 +177,29 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          isButtonDisable={ buttonAlwaysDisabled }
+          dCard={ onClickRemoveCard }
+          index={ 0 }
         />
-        {deck.map((card) => (
-          <Card
-            cardName={ card.cardName }
-            cardDescription={ card.cardDescription }
-            cardAttr1={ card.cardAttr1 }
-            cardAttr2={ card.cardAttr2 }
-            cardAttr3={ card.cardAttr3 }
-            cardImage={ card.cardImage }
-            cardRare={ card.cardRare }
-            cardTrunfo={ card.cardTrunfo }
-            key={ card.cardName }
-          />
-        ))}
-        ;
+        <h2>Deck</h2>
+        <div>
+          {deck.map((card, index) => (
+            <Card
+              cardName={ card.cardName }
+              cardDescription={ card.cardDescription }
+              cardAttr1={ card.cardAttr1 }
+              cardAttr2={ card.cardAttr2 }
+              cardAttr3={ card.cardAttr3 }
+              cardImage={ card.cardImage }
+              cardRare={ card.cardRare }
+              cardTrunfo={ card.cardTrunfo }
+              key={ card.cardName }
+              isButtonDisable={ buttonAlwaysEnable }
+              index={ index }
+              dCard={ onClickRemoveCard }
+            />
+          ))}
+        </div>
       </div>
     );
   }
