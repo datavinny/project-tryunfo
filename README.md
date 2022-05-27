@@ -16,7 +16,7 @@ O jogo de Super Trunfo pode ser feito com praticamente qualquer tema, mas tradic
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, CSS3, ES6
+> Desenvolvido usando: React, CSS3, HTML5, ES6
 ## Habilidades
 
 Neste projeto, foi testado habilidades de:
