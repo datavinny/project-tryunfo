@@ -28,12 +28,6 @@ Neste projeto, foi testado habilidades de:
 -Criar formulários utilizando sintaxe JSX com as tags: input, textarea, select, form, checkbox
 -Transmitir informações de componentes filhos para componentes pais via callbacks
 
-### Data de entrega
-
-- Projeto individual;
-- Foram 3 dias de projeto;
-- Data de entrega do projeto: `26/02/2022 - 10:23h`
-
 ## Para testar/contribuir no Projeto
 
 ### Instalando Dependências
